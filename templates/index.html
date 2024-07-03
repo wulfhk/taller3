@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Detección</title>
+    <style>
+        body {
+            background-color: #1e1e1e;
+            color: #ffffff;
+            font-family: 'Arial', sans-serif;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+        }
+
+        .container {
+            text-align: center;
+            background-color: rgba(30, 30, 30, 0.9);
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 0 20px rgba(0, 0, 0, 0.7);
+            max-width: 90%;
+        }
+
+        h1 {
+            margin-bottom: 20px;
+            color: #f0f0f0;
+        }
+
+        .video-container {
+            position: relative;
+            width: 100%;
+            max-width: 640px;
+            border: 5px solid #333;
+            border-radius: 10px;
+            overflow: hidden;
+        }
+
+        #video-stream {
+            width: 100%;
+            height: auto;
+            display: block;
+            border-radius: 10px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Stream</h1>
+        <div class="video-container">
+            <img id="video-stream" src="{{ url_for('stream') }}" alt="Video Stream">
+        </div>
+    </div>
+</body>
+</html>
