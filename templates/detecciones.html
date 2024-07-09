@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Lista de Detecciones</title>
+    <style>
+        body {
+            background-color: #1e1e1e;
+            color: #ffffff;
+            font-family: 'Arial', sans-serif;
+            margin: 0;
+            padding: 0;
+        }
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+        h1 {
+            text-align: center;
+            color: #f0f0f0;
+        }
+        .menu {
+            position: sticky;
+            top: 0;
+            background-color: #333;
+            padding: 10px 0;
+            text-align: center;
+            z-index: 1000;
+        }
+        .menu a {
+            color: #ffffff;
+            text-decoration: none;
+            margin: 0 10px;
+            padding: 5px 10px;
+            background-color: #555;
+            border-radius: 5px;
+        }
+        .detection-list {
+            list-style-type: none;
+            padding: 0;
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-around;
+        }
+        .detection-item {
+            background-color: rgba(30, 30, 30, 0.9);
+            margin: 10px;
+            padding: 10px;
+            border-radius: 5px;
+            width: calc(33.333% - 20px);
+            box-sizing: border-box;
+        }
+        .detection-item img {
+            max-width: 100%;
+            height: auto;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: transform 0.3s ease;
+        }
+        .detection-item img:hover {
+            transform: scale(1.05);
+        }
+        .detection-info {
+            margin-top: 10px;
+            font-size: 0.9em;
+        }
+        @media (max-width: 768px) {
+            .detection-item {
+                width: calc(50% - 20px);
+            }
+        }
+        @media (max-width: 480px) {
+            .detection-item {
+                width: 100%;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="menu">
+        <a href="{{ url_for('index') }}">Stream</a>
+        <a href="{{ url_for('detecciones') }}">Lista de Detecciones</a>
+    </div>
+    <div class="container">
+        <h1>Lista de Detecciones</h1>
+        <ul class="detection-list">
+            {% for deteccion in detecciones %}
+            <li class="detection-item">
+                <img src="{{ url_for('imagen', id=deteccion[0]) }}" alt="Detección {{ deteccion[0] }}" onclick="openImageModal(this.src)">
+                <div class="detection-info">
+                    <p>ID: {{ deteccion[0] }}</p>
+                    <p>Fecha y hora: {{ deteccion[1] }}</p>
+                </div>
+            </li>
+            {% endfor %}
+        </ul>
+    </div>
+    <div id="imageModal" class="modal">
+        <span class="close">&times;</span>
+        <img class="modal-content" id="modalImage">
+    </div>
+    <script>
+        function openImageModal(src) {
+            var modal = document.getElementById("imageModal");
+            var modalImg = document.getElementById("modalImage");
+            modal.style.display = "block";
+            modalImg.src = src;
+        }
+
+        var span = document.getElementsByClassName("close")[0];
+        span.onclick = function() { 
+            document.getElementById("imageModal").style.display = "none";
+        }
+    </script>
+</body>
+</html>
